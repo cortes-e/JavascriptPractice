@@ -14,7 +14,7 @@ Basic examples of Javascript syntax, including:
 6. Basic debugging techniques
 7. Use of Javascript functions and classes based on ES6
 8. Class constructors based on ES6
-9. Non-satic and static properties and functions based on ES6
+9. Non-static and static properties and functions based on ES6
 
 # 02-blackjack
 
