@@ -21,13 +21,22 @@ export const App = (elementId) => {
         displayTasks();
     })();
 
-    const newDescriptionInput = document.querySelector(ElementIds.CreateTask);
+    // HTML references
+    const createTaskListInput = document.querySelector(ElementIds.CreateTask);
+    const taskList = document.querySelector(ElementIds.TaskList)
 
-    newDescriptionInput.addEventListener('keyup', (event) => {
+    // Listeners
+    createTaskListInput.addEventListener('keyup', (event) => {
         if(event.keyCode === 13 && event.target.value.trim().length > 0){
             taskStore.addTask( event.target.value );
             displayTasks();
             event.target.value = '';
         }
     } )
+
+    taskList.addEventListener('click', (event) => {
+        const taskId = event.target.closest('[data-id').getAttribute('data-id');
+        taskStore.toggleTask(taskId);
+        displayTasks();
+    })
 }

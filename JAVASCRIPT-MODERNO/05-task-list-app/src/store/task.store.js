@@ -56,7 +56,6 @@ const toggleTask = ( taskId ) => {
         }
         return task;
     });
-    throw new Error ('Not implemented');
 }
 
 const deleteTask = ( taskId ) => {
