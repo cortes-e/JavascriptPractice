@@ -3,7 +3,7 @@ import taskStore from '../store/task.store';
 import { renderTasks } from './use-cases';
 
 const ElementIds = {
-    TaskList: '.task-list',
+    TaskList: '.todo-list',
 }
 
 export const App = (elementId) => {
