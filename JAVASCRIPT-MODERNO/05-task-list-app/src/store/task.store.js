@@ -19,12 +19,19 @@ const state = {
 }
 
 const initStore = () => {
+    loadStore();
     console.log('InitStore Pandea');
     console.log('STATE', state)
 }
 
 const loadStore = () => {
-    throw new Error ('Not implemented');
+    console.log(localStorage.getItem('state'));
+    if(localStorage.getItem('state')){
+        const {tasks = [], filter = Filters.All } = JSON.parse(localStorage.getItem('state'));
+        state.tasks = tasks;
+        state.filter = filter;
+    }
+    // throw new Error ('Not implemented');
 }
 
 const getTasks = ( filter ) => {
@@ -46,7 +53,7 @@ const addTask = ( description ) => {
     }
     state.tasks.push(new Task(description));
 
-    console.log(state.tasks);
+    saveStateToStorage();
 }
 
 const toggleTask = ( taskId ) => {
@@ -56,14 +63,20 @@ const toggleTask = ( taskId ) => {
         }
         return task;
     });
+
+    saveStateToStorage();
 }
 
 const deleteTask = ( taskId ) => {
     state.tasks = state.tasks.filter( task => task.id !== taskId);
+
+    saveStateToStorage();
 }
 
 const deleteCompletedTask = () => {
-    state.tasks = state.tasks.filter( task => task.done);
+    state.tasks = state.tasks.filter( task => !task.done);
+
+    saveStateToStorage();
 }
 
 const setFilter = ( newFilter = Filters.All ) => {
@@ -72,6 +85,10 @@ const setFilter = ( newFilter = Filters.All ) => {
 
 const getCurrentFilter = () => {
     return state.filter;
+}
+
+const saveStateToStorage = () => {
+    localStorage.setItem('state', JSON.stringify(state))
 }
 
 export default {

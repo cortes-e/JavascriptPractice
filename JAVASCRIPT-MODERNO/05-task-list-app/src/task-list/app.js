@@ -2,16 +2,17 @@ import html from './app.html?raw';
 import taskStore from '../store/task.store';
 import { renderTasks } from './use-cases';
 
-const ElementIds = {
+const HtmlElementId = {
     TaskList: '.todo-list',
     CreateTask: '#new-todo-input',
+    clearCompletedTasks: '.clear-completed'
 }
 
 export const App = (elementId) => {
     
     const displayTasks = () => {
         const tasks = taskStore.getTasks( taskStore.getCurrentFilter() );
-        renderTasks(ElementIds.TaskList, tasks);
+        renderTasks(HtmlElementId.TaskList, tasks);
     }
 
     (() => {
@@ -22,8 +23,10 @@ export const App = (elementId) => {
     })();
 
     // HTML references
-    const createTaskListInput = document.querySelector(ElementIds.CreateTask);
-    const taskList = document.querySelector(ElementIds.TaskList);
+    const createTaskListInput = document.querySelector(HtmlElementId.CreateTask);
+    const taskList = document.querySelector(HtmlElementId.TaskList);
+    const clearCompletedButton = document.querySelector(HtmlElementId.clearCompletedTasks);
+
 
     // Listeners
     createTaskListInput.addEventListener('keyup', (event) => {
@@ -32,13 +35,13 @@ export const App = (elementId) => {
             displayTasks();
             event.target.value = '';
         }
-    } )
+    });
 
     taskList.addEventListener('click', (event) => {
         const taskId = event.target.closest('[data-id]').getAttribute('data-id');
         taskStore.toggleTask(taskId);
         displayTasks();
-    })
+    });
 
     taskList.addEventListener('click', (event) => {
         if(event.target.className === 'destroy'){
@@ -47,5 +50,10 @@ export const App = (elementId) => {
             taskStore.deleteTask(taskId);
             displayTasks();
         }
-    })
+    });
+
+    clearCompletedButton.addEventListener('click', (event) => {
+        taskStore.deleteCompletedTask();
+        displayTasks();
+    });
 }
