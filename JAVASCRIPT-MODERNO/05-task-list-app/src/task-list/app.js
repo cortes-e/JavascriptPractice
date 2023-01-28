@@ -23,7 +23,7 @@ export const App = (elementId) => {
 
     // HTML references
     const createTaskListInput = document.querySelector(ElementIds.CreateTask);
-    const taskList = document.querySelector(ElementIds.TaskList)
+    const taskList = document.querySelector(ElementIds.TaskList);
 
     // Listeners
     createTaskListInput.addEventListener('keyup', (event) => {
@@ -35,8 +35,17 @@ export const App = (elementId) => {
     } )
 
     taskList.addEventListener('click', (event) => {
-        const taskId = event.target.closest('[data-id').getAttribute('data-id');
+        const taskId = event.target.closest('[data-id]').getAttribute('data-id');
         taskStore.toggleTask(taskId);
         displayTasks();
+    })
+
+    taskList.addEventListener('click', (event) => {
+        if(event.target.className === 'destroy'){
+            const taskId = event.target.closest('[data-id]').getAttribute('data-id');
+            console.log('TASK ID', taskId);
+            taskStore.deleteTask(taskId);
+            displayTasks();
+        }
     })
 }
