@@ -4,6 +4,7 @@ import { renderTasks } from './use-cases';
 
 const ElementIds = {
     TaskList: '.todo-list',
+    CreateTask: '#new-todo-input',
 }
 
 export const App = (elementId) => {
@@ -19,4 +20,14 @@ export const App = (elementId) => {
         document.querySelector(elementId).append(app);
         displayTasks();
     })();
+
+    const newDescriptionInput = document.querySelector(ElementIds.CreateTask);
+
+    newDescriptionInput.addEventListener('keyup', (event) => {
+        if(event.keyCode === 13 && event.target.value.trim().length > 0){
+            taskStore.addTask( event.target.value );
+            displayTasks();
+            event.target.value = '';
+        }
+    } )
 }

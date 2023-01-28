@@ -40,11 +40,13 @@ const getTasks = ( filter ) => {
     }
 }
 
-const addtask = ( description ) => {
+const addTask = ( description ) => {
     if (!description) {
         throw new Error ('Description must not be empty');
     }
     state.tasks.push(new Task(description));
+
+    console.log(state.tasks);
 }
 
 const toggleTask = ( taskId ) => {
@@ -77,7 +79,7 @@ export default {
     initStore,
     loadStore,
     getTasks,
-    addtask,
+    addTask,
     toggleTask,
     deleteTask,
     deleteCompletedTask,
