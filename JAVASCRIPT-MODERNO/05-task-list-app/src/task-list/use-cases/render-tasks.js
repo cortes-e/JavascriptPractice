@@ -1,5 +1,5 @@
 import { Task } from "../models/task.model"
-import { createTaskHtml } from "./create-task-html";
+import { createTaskHtml } from "./";
 
 let element;
 

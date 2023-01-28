@@ -1,9 +1,9 @@
 import { Task } from '../task-list/models/task.model';
 
-const Filters = {
+export const Filters = {
     All: 'all',
     Completed: 'completed',
-    Pending: 'pendin',
+    Pending: 'pending',
 }
 
 const state = {

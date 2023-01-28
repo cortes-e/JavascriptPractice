@@ -1,11 +1,12 @@
 import html from './app.html?raw';
-import taskStore from '../store/task.store';
+import taskStore, { Filters } from '../store/task.store';
 import { renderTasks } from './use-cases';
 
 const HtmlElementId = {
     TaskList: '.todo-list',
     CreateTask: '#new-todo-input',
-    clearCompletedTasks: '.clear-completed'
+    clearCompletedTasks: '.clear-completed',
+    taskFilters: '.filter'
 }
 
 export const App = (elementId) => {
@@ -26,7 +27,7 @@ export const App = (elementId) => {
     const createTaskListInput = document.querySelector(HtmlElementId.CreateTask);
     const taskList = document.querySelector(HtmlElementId.TaskList);
     const clearCompletedButton = document.querySelector(HtmlElementId.clearCompletedTasks);
-
+    const filterTaskOptions = document.querySelectorAll(HtmlElementId.taskFilters);
 
     // Listeners
     createTaskListInput.addEventListener('keyup', (event) => {
@@ -52,8 +53,38 @@ export const App = (elementId) => {
         }
     });
 
-    clearCompletedButton.addEventListener('click', (event) => {
+    clearCompletedButton.addEventListener('click', () => {
         taskStore.deleteCompletedTask();
         displayTasks();
     });
+
+    console.log('filterTaskOptions', filterTaskOptions);
+
+    filterTaskOptions.forEach(filterOption => {
+        // console.log('filteroption', filterOption);
+        filterOption.addEventListener('click', (event) => {
+            
+            filterTaskOptions.forEach(element => {
+                element.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+
+            console.log('FILTER VALUE', event.target.id);
+
+            switch(event.target.id){
+                case 'filter-all':
+                    taskStore.setFilter(Filters.All);
+                    break;
+                case 'filter-pending':
+                    taskStore.setFilter(Filters.Pending);
+                    break;
+                case 'filter-completed':
+                    taskStore.setFilter(Filters.Completed);
+                    break;
+            }
+            displayTasks();
+        });
+
+    })
 }
