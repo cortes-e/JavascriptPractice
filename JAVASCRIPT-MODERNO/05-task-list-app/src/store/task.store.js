@@ -24,11 +24,23 @@ const loadStore = () => {
 }
 
 const getTasks = ( filter ) => {
-    throw new Error ('Not implemented');
+    switch (filter){
+        case Filters.All:
+            return [...state.tasks];
+        case Filters.Completed:
+            return state.tasks.filter(task => task.done);
+        case Filters.Pending:
+            return state.tasks.filter(task => !task.done);
+        default:
+            throw new Error(`Option ${filter} is not valid`)
+    }
 }
 
 const addtask = ( description ) => {
-    throw new Error ('Not implemented');
+    if (!description) {
+        throw new Error ('Description must not be empty');
+    }
+    state.tasks.push(new Task(description));
 }
 
 const toggleTask = ( taskId ) => {
@@ -36,19 +48,19 @@ const toggleTask = ( taskId ) => {
 }
 
 const deleteTask = ( taskId ) => {
-    throw new Error ('Not implemented');
+    state.tasks = state.tasks.filter( task => task.id !== taskId);
 }
 
 const deleteCompletedTask = () => {
-    throw new Error ('Not implemented');
+    state.tasks = state.tasks.filter( task => task.done);
 }
 
 const setFilter = ( newFilter = Filters.All ) => {
-    throw new Error ('Not implemented');
+    state.filter = newFilter;
 }
 
 const getCurrentFilter = () => {
-    throw new Error ('Not implemented');
+    return state.filter;
 }
 
 export default {
