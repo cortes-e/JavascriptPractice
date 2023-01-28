@@ -10,6 +10,10 @@ const state = {
     tasks: [
         new Task('Task 1'),
         new Task('Task 2'),
+        new Task('Task 3'),
+        new Task('Task 4'),
+        new Task('Task 5'),
+        new Task('Task 6'),
     ],
     filter: Filters.All,
 }
@@ -44,6 +48,12 @@ const addtask = ( description ) => {
 }
 
 const toggleTask = ( taskId ) => {
+    state.tasks = state.tasks.map( task => {
+        if(task.id === taskId){
+            task.done = !task.done;
+        }
+        return task;
+    });
     throw new Error ('Not implemented');
 }
 
