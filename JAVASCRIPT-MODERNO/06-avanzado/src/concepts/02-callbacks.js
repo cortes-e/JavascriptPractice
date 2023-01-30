@@ -8,10 +8,17 @@ export const callbacksComponent = (HtmlElement) => {
 
     console.log('CALLBACK');
 
-    const id = '5d86371fd55e2e2a30fe1cc3';
+    /** ID of Ant Man */
+    // const id = '5d86371fd55e2e2a30fe1cc3';
 
-    findHero(id, (hero) => {
-        HtmlElement.innerHTML = hero.name;
+    /** ID that does not exist */
+    const id = '5d86371fd55e2e2a30fe1cc32';
+
+
+    findHero(id, (error, hero) => {
+        
+        HtmlElement.innerHTML = error ? error : hero.name;
+
     });
 
 }
@@ -19,10 +26,12 @@ export const callbacksComponent = (HtmlElement) => {
 /**
  * 
  * @param {String} id 
- * @param { (hero: Object) => void } callback 
+ * @param { (error?: String, hero: Object) => void } callback 
  */
 const findHero = (id, callback) => {
     const hero = heroes.find( hero => hero.id === id);
 
-    callback(hero);
+    const error = hero ? null : `ERROR: Hero with ID: ${id} was not found`;
+
+    callback(error, hero);
 }
