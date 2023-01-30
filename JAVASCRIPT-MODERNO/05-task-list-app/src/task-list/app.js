@@ -1,12 +1,13 @@
 import html from './app.html?raw';
 import taskStore, { Filters } from '../store/task.store';
-import { renderTasks } from './use-cases';
+import { renderPendingTasks, renderTasks } from './use-cases';
 
 const HtmlElementId = {
     TaskList: '.todo-list',
     CreateTask: '#new-todo-input',
     clearCompletedTasks: '.clear-completed',
-    taskFilters: '.filter'
+    taskFilters: '.filter',
+    pendingCount: '#pending-count',
 }
 
 export const App = (elementId) => {
@@ -14,6 +15,11 @@ export const App = (elementId) => {
     const displayTasks = () => {
         const tasks = taskStore.getTasks( taskStore.getCurrentFilter() );
         renderTasks(HtmlElementId.TaskList, tasks);
+        updatePendingTaskCount();
+    }
+
+    const updatePendingTaskCount = () => {
+        renderPendingTasks(HtmlElementId.pendingCount);
     }
 
     (() => {
@@ -28,6 +34,7 @@ export const App = (elementId) => {
     const taskList = document.querySelector(HtmlElementId.TaskList);
     const clearCompletedButton = document.querySelector(HtmlElementId.clearCompletedTasks);
     const filterTaskOptions = document.querySelectorAll(HtmlElementId.taskFilters);
+    const pendingCounter = document.querySelectorAll(HtmlElementId.pendingCount);
 
     // Listeners
     createTaskListInput.addEventListener('keyup', (event) => {
