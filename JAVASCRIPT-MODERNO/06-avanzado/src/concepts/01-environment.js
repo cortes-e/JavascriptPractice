@@ -5,8 +5,7 @@
  */
 export const environmentsComponent = (HtmlElement) => {
 
-    console.log('HTML ELEMENT', HtmlElement);
-    console.log('ENV', import.meta.env);
+    console.log('ENVIRONMENT VARIABLES');
 
     const html = `
         DEV: ${import.meta.env.DEV} <br>
