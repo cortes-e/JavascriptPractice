@@ -1,5 +1,6 @@
 import './style.css';
 import javascriptLogo from './javascript.svg';
+import { environmentsComponent } from './src/concepts/01-environment';
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -13,6 +14,8 @@ document.querySelector('#app').innerHTML = `
     <div class="card">
     </div>
   </div>
-`
+`;
 
-setupCounter(document.querySelector('#counter'))
+const element = document.querySelector('.card');
+
+environmentsComponent(element);
