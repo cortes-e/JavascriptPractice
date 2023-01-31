@@ -1,0 +1,95 @@
+import { heroes } from "../data/heroes";
+
+/**
+ * 
+ * @param {HTMLDivElement} HtmlElement 
+ */
+export const generatorFunctionsComponent = async (HtmlElement) => {
+
+    console.log('GENERATOR FUNCTIONS LESSON');
+
+    /** PART 1: Generator functions (introductory example) 
+     * Yield is returning a value
+     * return is the final value returned
+     * You can access the next value by calling the 'next()' method in the generator function variable
+    */
+
+    // const myGenerator = myFirstGeneratorFunction();
+
+    // console.log( myGenerator.next() );
+    // console.log( myGenerator.next() );
+    // console.log( myGenerator.next() );
+    // console.log( myGenerator.next() );
+    // console.log( myGenerator.next() );
+    // console.log( myGenerator.next() );
+    // console.log( myGenerator.next() );
+
+    /** PART 2: Use of generator functions */
+    // const genId = idGenerator();
+    
+    // const button = document.createElement('button');
+    // button.innerText = 'Click me';
+    // HtmlElement.append(button);
+
+    // const renderButton = () => {
+    //     const { value } = genId.next();
+    //     button.innerText = `Click ${value}`;
+    // }
+
+    // button.addEventListener('click', renderButton);
+
+    /** PART 3: Async generator functions
+     * Using next will always jump to the next yielded value regardless if you are only looking for a property
+     */
+
+    const heroGenerator = getHeroGenerator();
+
+    let isFinished = true;
+
+    do {
+
+        const {value, done} = await heroGenerator.next();
+        isFinished = done;
+
+        console.log({value, done})
+
+        HtmlElement.innerHTML = value;
+    }while( !isFinished )
+
+}
+
+function* idGenerator() {
+    let currentId = 0;
+    while(true){
+        yield ++currentId;
+    }
+}
+
+function* myFirstGeneratorFunction() {
+    
+    yield 'First value';
+    yield 'Second value';
+    yield 'Third value';
+    yield 'Fourth value';
+    yield 'Fifth value';
+
+    return 'No more values';
+}
+
+async function* getHeroGenerator() {
+
+    for (const hero of heroes) {
+        await sleep();
+        yield hero.name;
+    }
+
+    return 'No more values';
+}
+
+const sleep = () => {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+    }))
+}

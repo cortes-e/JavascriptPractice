@@ -4,6 +4,7 @@ import { environmentsComponent } from './src/concepts/01-environment';
 import { callbacksComponent } from './src/concepts/02-callbacks';
 import { promiseComponent } from './src/concepts/03-promises';
 import { asyncComponent } from './src/concepts/04-async';
+import { generatorFunctionsComponent } from './src/concepts/05-generators';
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -24,4 +25,5 @@ const element = document.querySelector('.card');
 // environmentsComponent(element);
 // callbacksComponent(element);
 // promiseComponent(element);
-asyncComponent(element);
+// asyncComponent(element);
+generatorFunctionsComponent(element);
