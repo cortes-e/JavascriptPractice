@@ -6,7 +6,7 @@ import { heroes } from '../data/heroes';
  */
 export const callbacksComponent = (HtmlElement) => {
 
-    console.log('CALLBACK');
+    console.log('CALLBACK LESSON');
 
     /** ID of Ant Man */
     // const id = '5d86371fd55e2e2a30fe1cc3';
