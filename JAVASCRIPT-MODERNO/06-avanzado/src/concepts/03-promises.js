@@ -15,12 +15,13 @@ export const promiseComponent = (HtmlElement) => {
     /** ID of Ant Man */
     const id1 = '5d86371fd55e2e2a30fe1cc3';
     
-    /** ID that does not exist */
-    // const id1 = '5d86371fd55e2e2a30fe1cc32';
-    // const id2 = '5d86371fd55e2e2a30fe1cc32';
-
     /** ID of Falcon */
     const id2 = '5d86371f97c29d020f1e1f6d';
+    
+    /** ID that does not exist (used to see behavior of catch) */
+    const idError = '5d86371fd55e2e2a30fe1cc32'
+    // const id1 = idError;
+    // const id2 = idError;
     
     /** PART 1: Calling a Promise
      */
@@ -81,7 +82,7 @@ export const promiseComponent = (HtmlElement) => {
     // Promise.race([
     //     slowPromise(),
     //     mediumPromise(),
-    //     fastPromise()
+    //     fastPromise(),
     // ])
     //     .then( value => renderHtmlText(value) );
 }
